@@ -9,5 +9,5 @@ class ArticleSerializer(serializers.ModelSerializer):
         #exclude=['users']
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        models = User
+        model = User
         fields = "__all__"
