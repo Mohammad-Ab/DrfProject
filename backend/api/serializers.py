@@ -2,13 +2,11 @@ from rest_framework import serializers
 from blog.models import Article
 from django.contrib.auth import get_user_model
 
-class AuthorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ["id", "username","first_name","last_name"]
-
 class ArticleSerializer(serializers.ModelSerializer):
-    author=serializers.HyperlinkedIdentityField(view_name='api:author-detail') 
+    def get_author(self,obj):
+        return obj.author.username
+    author = serializers.SerializerMethodField("get_author")
+#     author=serializers.CharField(source="author.username") 
 
     class Meta:
         model = Article
