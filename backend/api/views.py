@@ -16,6 +16,7 @@ class ArticleViewSet(ModelViewSet):
     serializer_class = ArticleSerializer
     filterset_fields = ["status", "author__username"]
     search_fields = ["title","content","author__username"]
+    ordering_fields = ["publish","status"]
 
     #for permissions is diffrente
     def get_permission(self):
