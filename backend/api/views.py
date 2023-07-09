@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import IsSuperUser,IsAuthorOrReadOnly,IsStaffOrReadOnly,IsSuperUserOrStaffReadOnly
 from blog.models import Article
 from .serializers import ArticleSerializer,UserSerializer
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from rest_framework.viewsets import ModelViewSet
 
@@ -23,7 +23,7 @@ class ArticleViewSet(ModelViewSet):
         return [permission() for permission in permissions_classes]
 
 class UserViewSet(ModelViewSet):
-    queryset = User.objects.all()
+    queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
     permissions_classes = [IsSuperUserOrStaffReadOnly]
 
